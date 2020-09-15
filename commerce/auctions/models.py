@@ -8,7 +8,6 @@ class User(AbstractUser):
 
 class Active_listing(models.Model):
     owner_name = models.ForeignKey(User, on_delete=models.CASCADE, related_name="owner")
-    #owner_name = models.CharField(max_length=64)
     item_name = models.CharField(max_length=64)
     category = models.CharField(max_length=64)
     description = models.TextField(max_length=64)

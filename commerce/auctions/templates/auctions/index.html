@@ -1,11 +1,35 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
+    <div class="container">
+        <h2>Active Listings</h2>
+    </div>
 
-    {% for item in items %}
-        <div>{{ item }}</div>
-    {% empty %}
-        <div>No item</div>
-    {% endfor %}
+    <div class="container" id="listings">
+        {% for item in items %}
+            <div class="card mb-3" style="max-width: 540px;" id="card-listings">
+                <div class="row no-gutters">
+
+                    <div class="col-md-4">
+                        <img src="{{item.link}}" class="card-img" alt="...">
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{item.title}}</h5>
+                            <p class="card-text">{{item.description}}</p>
+                            <p class="card-text">${{item.price}}</p>
+                            <a href='#'><button class="btn btn-outline-success">Bid Now!</button></a>
+                            <p class="card-text"><small class="text-muted">{{iem.time}}</small></p>
+                            <a href="#">Posted by {{item.owner_name }}</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        {% empty %}
+            <div>No item</div>
+        {% endfor %}
+    </div>
 {% endblock %}
