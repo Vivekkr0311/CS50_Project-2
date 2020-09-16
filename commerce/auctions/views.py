@@ -8,7 +8,7 @@ from .models import *
 
 
 def index(request):
-    items = Active_listing.objects.all()
+    items = Product.objects.all()
     #try:
      #   watch_list_count  = Watch_list.objects.filter(user=)
 

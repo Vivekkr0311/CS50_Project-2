@@ -6,7 +6,7 @@ class User(AbstractUser):
     pass
 
 
-class Active_listing(models.Model):
+class Product(models.Model):
     owner_name = models.ForeignKey(User, on_delete=models.CASCADE, related_name="owner")
     item_name = models.CharField(max_length=64)
     category = models.CharField(max_length=64)
@@ -27,14 +27,16 @@ class Bids(models.Model):
     
 
 class Comments():
-    user_name = models.CharField(max_length=64)
-    time = models.CharField(max_length=64)
+    user_name = models.ForeignKey(User, on_delete=models.CASCADE, related_name="Comments_by_user")
+    time = models.DateTimeField(auto_now_add=True)
     comment = models.TextField()
-    listing_ID = models.IntegerField()
+    product_name = models.ManyToManyField(Product, blank=True, related_name="Comments_on_product")
 
 class Watch_list(models.Model):
-    user_name = models.CharField(max_length=64)
-    listing_ID = models.IntegerField()
+    user_name = models.ManyToManyField(User, blank=True, related_name="user_name")
+    product_name = models.ManyToManyField(Product, blank=True, related_name="Watch_List")
+    
+    
 
 class Close_Bid(models.Model):
     owner_name = models.CharField(max_length=64)
