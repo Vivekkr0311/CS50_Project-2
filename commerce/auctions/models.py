@@ -3,11 +3,13 @@ from django.db import models
 from django.utils import timezone
 
 class User(AbstractUser):
+    id = models.AutoField(primary_key=True)
     pass
 
 
 class Product(models.Model):
-    owner_name = models.ForeignKey(User, on_delete=models.CASCADE, related_name="owner")
+    id = models.AutoField(primary_key=True)
+    owner_name = models.ForeignKey(User, on_delete=models.CASCADE, related_name="products")
     item_name = models.CharField(max_length=64)
     category = models.CharField(max_length=64)
     description = models.TextField(max_length=64)
@@ -38,11 +40,7 @@ class Watch_list(models.Model):
     
     
 
-class Close_Bid(models.Model):
-    owner_name = models.CharField(max_length=64)
-    winner_name = models.CharField(max_length=64)
-    listing_ID = models.IntegerField()
-    win_price = models.IntegerField()
+
 
 
 class All_Listing(models.Model):

@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 from .models import *
 
@@ -67,6 +68,16 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "auctions/register.html")
+
+def my_products(request, username):
+    id = User.objects.get(username=username).pk
+    user = User.objects.get(pk=id)
+    list_of_product = user.products.all()
+    
+    return render(request, "auctions/my_product.html", {
+        "list_of_product":list_of_product
+    })
+    
 
 def add_watchlist(request):
     return render(request, "auctions/add_watchlist.html")

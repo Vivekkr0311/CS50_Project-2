@@ -10,7 +10,7 @@ class Watch_list_Admin(admin.ModelAdmin):
     list_display = ("user_name", "product_name")
 
 admin.site.register(User, User_Admin)
-admin.site.register(Product, Product_Admin)
+admin.site.register(Product)
 admin.site.register(Watch_list)
 admin.site.register(Bids)
 #admin.site.register(Comment)
