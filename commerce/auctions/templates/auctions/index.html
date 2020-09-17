@@ -21,7 +21,7 @@
                             <p class="card-text">${{item.price}}</p>
                             <a href='#'><button class="btn btn-outline-success">Bid Now!</button></a>
                             {% if user.is_authenticated %}
-                                <a href='{% url "add_to_watchlist" %}'><button class="btn btn-outline-success">Add to WatchList!</button></a>
+                                <a href="{% url 'add_to_watchlist' item.id %}"><button class="btn btn-outline-success">Add to WatchList!</button></a>
                             {% endif %}
                             <p class="card-text"><small class="text-muted">{{iem.time}}</small></p>
                             <a href="#">Posted by {{item.owner_name }}</a>

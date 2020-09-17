@@ -79,7 +79,13 @@ def my_products(request, username):
     })
     
 
-def add_watchlist(request):
+def add_watchlist(request, product_ID):
+    if request.user.username:
+       w = Watch_list()
+       id = User.objects.get(username=request.user.username).pk
+       w.user_ID = id
+       w.product_ID = product_ID
+       w.save()
     return render(request, "auctions/add_watchlist.html")
 
 def watchlist(request):

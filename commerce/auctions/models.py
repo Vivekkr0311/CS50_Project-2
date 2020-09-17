@@ -35,8 +35,8 @@ class Comment():
     product_name = models.ManyToManyField(Product, blank=True, related_name="Comments_on_product")
 
 class Watch_list(models.Model):
-    user_name = models.ManyToManyField(User, blank=True, related_name="user_name")
-    product_name = models.ManyToManyField(Product, blank=True, related_name="Watch_List")
+    user_ID = models.IntegerField()
+    product_ID = models.IntegerField()
     
     
 
