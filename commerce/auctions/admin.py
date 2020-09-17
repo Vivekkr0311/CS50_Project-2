@@ -12,4 +12,5 @@ class Watch_list_Admin(admin.ModelAdmin):
 admin.site.register(User, User_Admin)
 admin.site.register(Product, Product_Admin)
 admin.site.register(Watch_list)
-admin.site.register(Comments)
+admin.site.register(Bids)
+#admin.site.register(Comment)

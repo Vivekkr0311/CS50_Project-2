@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-
+from django.utils import timezone
 
 class User(AbstractUser):
     pass
@@ -12,7 +12,7 @@ class Product(models.Model):
     category = models.CharField(max_length=64)
     description = models.TextField(max_length=64)
     link = models.CharField(max_length=64, default=None, blank=True, null=True)
-    time = models.CharField(max_length=64)
+    time = models.DateTimeField(default=timezone.now)
     price = models.IntegerField()
 
     def __str__(self):
@@ -20,15 +20,15 @@ class Product(models.Model):
 
     
 class Bids(models.Model):
-    user_name = models.CharField(max_length=64)
-    title_name = models.CharField(max_length=64)
+    user_name = models.OneToOneField(User, blank=True, on_delete=models.CASCADE, related_name="Bid_by")
+    title_name = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="Bid_on_product")
     listing_ID = models.IntegerField()
     bid = models.IntegerField()
     
 
-class Comments():
+class Comment():
     user_name = models.ForeignKey(User, on_delete=models.CASCADE, related_name="Comments_by_user")
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DateTimeField(default=timezone.now)
     comment = models.TextField()
     product_name = models.ManyToManyField(Product, blank=True, related_name="Comments_on_product")
 

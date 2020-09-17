@@ -67,3 +67,15 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "auctions/register.html")
+
+def add_watchlist(request):
+    return render(request, "auctions/add_watchlist.html")
+
+def watchlist(request):
+    return render(request, "auctions/watchlist.html")
+
+def create_listing(request):
+    return render(request, "auctions/create_listing.html")
+
+def your_winnings(request):
+    return render(request, "auctions/your_winnings.html")
