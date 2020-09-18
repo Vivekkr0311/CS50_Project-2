@@ -1,9 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from .models import *
 
@@ -16,6 +17,7 @@ def index(request):
     return render(request, "auctions/index.html",{
         "items":items
     })
+
 
 
 def login_view(request):
@@ -69,6 +71,8 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 
+
+@login_required
 def my_products(request, username):
     id = User.objects.get(username=username).pk
     user = User.objects.get(pk=id)
@@ -77,22 +81,19 @@ def my_products(request, username):
     return render(request, "auctions/my_product.html", {
         "list_of_product":list_of_product
     })
-    
 
+@login_required
 def add_watchlist(request, product_ID):
-    if request.user.username:
-       w = Watch_list()
-       id = User.objects.get(username=request.user.username).pk
-       w.user_ID = id
-       w.product_ID = product_ID
-       w.save()
-    return render(request, "auctions/add_watchlist.html")
+    pass
 
+@login_required
 def watchlist(request):
     return render(request, "auctions/watchlist.html")
 
+@login_required
 def create_listing(request):
     return render(request, "auctions/create_listing.html")
 
+@login_required
 def your_winnings(request):
     return render(request, "auctions/your_winnings.html")
