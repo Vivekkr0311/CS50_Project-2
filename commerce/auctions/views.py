@@ -5,9 +5,13 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django import forms
 
 from .models import *
 
+class Add_product_Form(forms.Form):
+    product_name = forms.CharField(max_length=64)
+    product_description = forms.CharField(widget=forms.Textarea)
 
 def index(request):
     items = Product.objects.all()
@@ -72,6 +76,8 @@ def register(request):
         return render(request, "auctions/register.html")
 
 
+    
+    
 @login_required
 def my_products(request, username):
     id = User.objects.get(username=username).pk
@@ -92,7 +98,10 @@ def watchlist(request):
 
 @login_required
 def create_listing(request):
-    return render(request, "auctions/create_listing.html")
+    return render(request, "auctions/create_listing.html", {
+        "form": Add_product_Form()
+    })
+
 
 @login_required
 def your_winnings(request):

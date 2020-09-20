@@ -1,5 +1,12 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h1>Some html for creating listing!</h1>
+   <form  method="post">
+       {% csrf_token %}
+       <label>Product Name :</label>
+       <div id="title-field">{{form.product_name }}</div>
+       <label>Product Description : </label>
+       <input type="submit" value="Click here to add.." style="float: right; margin-right: 255px;">
+       <div>{{form.product_description}}</div>   
+   </form>
 {% endblock %}
