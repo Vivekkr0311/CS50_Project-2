@@ -1,0 +1,2 @@
+[2020-09-20 13:02:10.961] [sharedprocess] [info] main {"machineId":"039bdbfefbec82f89475f5abeabcbe11fc9d967da450c7e1c9a15f26b32d73e6","windowId":2}
+[2020-09-20 13:02:10.988] [sharedprocess] [error] [File Watcher (node.js)] Error: ENOENT: no such file or directory, stat '/root/Desktop/commerce/~/.vscode-root/User/snippets'

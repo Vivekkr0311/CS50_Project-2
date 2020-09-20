@@ -12,6 +12,9 @@ from .models import *
 class Add_product_Form(forms.Form):
     product_name = forms.CharField(max_length=64)
     product_description = forms.CharField(widget=forms.Textarea)
+    category = forms.CharField(max_length=64)
+    link = forms.URLField()
+    price = forms.IntegerField()
 
 def index(request):
     items = Product.objects.all()
