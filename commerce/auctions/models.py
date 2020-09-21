@@ -12,7 +12,7 @@ class Product(models.Model):
     owner_name = models.ForeignKey(User, on_delete=models.CASCADE, related_name="products")
     item_name = models.CharField(max_length=64)
     category = models.CharField(max_length=64)
-    description = models.TextField(max_length=64)
+    description = models.TextField(max_length=64, blank=True)
     link = models.CharField(max_length=64, default=None, blank=True, null=True)
     time = models.DateTimeField(default=timezone.now)
     price = models.IntegerField()

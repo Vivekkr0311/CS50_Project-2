@@ -1,16 +1,17 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
+    <h1>Creating for {{username}}</h1>
    <form  method="post">
        {% csrf_token %}
        <label>Product Name :</label>
        <div id="title-field">{{form.product_name }}</div>
-       <label>Product Description : </label>
+       <label>Product Description (Optional): </label>
        <input type="submit" value="Click here to add.." style="float: right; margin-right: 255px;">
        <div>{{form.product_description}}</div>
        <label>Category :- </label>
        <div>{{form.category}}</div>
-       <label>Link to an image :-</label>
+       <label>Link to an image (Optional):-</label>
        <div>{{form.link}}</div> 
        <label>Give initial Bid :-</label>
        <div>{{form.price}}</div>

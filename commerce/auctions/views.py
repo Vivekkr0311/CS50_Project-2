@@ -11,9 +11,9 @@ from .models import *
 
 class Add_product_Form(forms.Form):
     product_name = forms.CharField(max_length=64)
-    product_description = forms.CharField(widget=forms.Textarea)
+    product_description = forms.CharField(widget=forms.Textarea, required=False)
     category = forms.CharField(max_length=64)
-    link = forms.URLField()
+    link = forms.URLField(required=False)
     price = forms.IntegerField()
 
 def index(request):
@@ -100,8 +100,9 @@ def watchlist(request):
     return render(request, "auctions/watchlist.html")
 
 @login_required
-def create_listing(request):
+def create_listing(request, username):
     return render(request, "auctions/create_listing.html", {
+        "username":username,
         "form": Add_product_Form()
     })
 
