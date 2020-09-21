@@ -17,10 +17,13 @@ class Add_product_Form(forms.Form):
     price = forms.IntegerField()
 
 def index(request):
-    items = Product.objects.all()
-    #try:
-     #   watch_list_count  = Watch_list.objects.filter(user=)
-
+    items = []
+    if request.user.username: #If user is logged in.
+        user = User.objects.get(username=request.user.username)
+        items = Product.objects.exclude(owner_name=user).all()
+    else: #if user is not logged in.
+        items = Product.objects.all()
+   
     return render(request, "auctions/index.html",{
         "items":items
     })
