@@ -101,6 +101,25 @@ def watchlist(request):
 
 @login_required
 def create_listing(request, username):
+    if request.method == "POST":
+        form = Add_product_Form(request.POST)
+        user = User.objects.get(username=username)
+        if form.is_valid():
+            product_name = form.cleaned_data["product_name"]
+            product_description = form.cleaned_data["product_description"]
+            category = form.cleaned_data["category"]
+            link = form.cleaned_data["link"]
+            Bid = form.cleaned_data["price"]
+
+            p = Product(owner_name=user, item_name=product_name, category=category, description=product_description, link=link, price=Bid)
+            p.save()
+            return HttpResponseRedirect(reverse("index"))
+        else:
+            return render(request, "encyclopedia/create_listing.html", {
+                "username":username,
+                "form": Add_product_Form()
+            })
+
     return render(request, "auctions/create_listing.html", {
         "username":username,
         "form": Add_product_Form()
