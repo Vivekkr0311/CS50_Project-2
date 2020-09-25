@@ -96,11 +96,41 @@ def my_products(request, username):
 
 @login_required
 def add_watchlist(request, product_ID):
-    pass
+    if request.user.username:
+        user = User.objects.get(username=request.user.username)
+        user_ID = user.pk
+        w = Watch_list(u_ID = user_ID, p_ID = product_ID)
+        w.save()
+        return redirect("watchlist", user_ID)
+
+    
+@login_required
+def remove_from_watchlist(request, product_ID):
+    if request.user.username:
+        user = User.objects.get(username=request.user.username)
+        user_id = user.pk
+
+        w = Watch_list.objects.get(u_ID=user_id, p_ID=product_ID)
+        w.delete()
+        return redirect("watchlist", user_id)
 
 @login_required
-def watchlist(request):
-    return render(request, "auctions/watchlist.html")
+def watchlist(request, user_id):
+    user_ID = user_id
+
+    items = Watch_list.objects.filter(u_ID=user_ID)
+    product_IDs = []
+    for item in items:
+        product_IDs.append(item.p_ID)
+
+    items = []
+    for product_id in product_IDs:
+        items.append(Product.objects.get(pk=product_id))
+    
+    return render(request, "auctions/watchlist.html", {
+        "user_id":user_ID,
+        "items":items
+    })
 
 @login_required
 def create_listing(request, username):
