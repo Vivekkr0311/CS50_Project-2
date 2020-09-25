@@ -99,9 +99,13 @@ def add_watchlist(request, product_ID):
     if request.user.username:
         user = User.objects.get(username=request.user.username)
         user_ID = user.pk
-        w = Watch_list(u_ID = user_ID, p_ID = product_ID)
-        w.save()
-        return redirect("watchlist", user_ID)
+        try:
+            w = Watch_list.objects.get(u_ID=user_ID, p_ID=product_ID)
+            return redirect("watchlist", user_ID)
+        except:
+            w = Watch_list(u_ID = user_ID, p_ID = product_ID)
+            w.save()
+            return redirect("watchlist", user_ID)
 
     
 @login_required
