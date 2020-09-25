@@ -12,7 +12,8 @@ urlpatterns = [
     path("remove_from_watchlist/<int:product_ID>", views.remove_from_watchlist, name="remove_from_watchlist"),
     path("watchlist/<int:user_id>", views.watchlist, name="watchlist"),
     path("create_listing/<str:username>", views.create_listing, name="create_listing"),
-    path("your_winnings/", views.your_winnings, name="your_winnings")
+    path("your_winnings/", views.your_winnings, name="your_winnings"),
+    path("changeBid/<int:product_ID>", views.change_Bid, name="change_Bid")
     #path("categories", views.categories, name="categories"),
    # path("categories/<str:category>", views.category, name="category"),
    

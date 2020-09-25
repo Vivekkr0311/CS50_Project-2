@@ -14,7 +14,7 @@
                     <h5 class="card-title">{{product.title}}</h5>
                     <p class="card-text">{{product.description}}</p>
                     <p class="card-text">${{product.price}}</p>
-                    <a href='#'><button class="btn btn-outline-success">Change Bid!</button></a>
+                    <a href="{% url 'change_Bid' product.id %}"><button class="btn btn-primary">Change Bid!</button></a>
                     <p class="card-text"><small class="text-muted">{{product.time}}</small></p>
                 </div>
             </div>

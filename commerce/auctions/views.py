@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django import forms
+from django.contrib import messages
 
 from .models import *
 
@@ -15,6 +16,11 @@ class Add_product_Form(forms.Form):
     category = forms.CharField(max_length=64)
     link = forms.URLField(required=False)
     price = forms.IntegerField()
+
+class Change_Bid_Form(forms.Form):
+    new_Bid = forms.IntegerField()
+    
+    
 
 def index(request):
     items = []
@@ -160,6 +166,35 @@ def create_listing(request, username):
     return render(request, "auctions/create_listing.html", {
         "username":username,
         "form": Add_product_Form()
+    })
+
+@login_required
+def change_Bid(request, product_ID):
+
+    
+    p = Product.objects.get(pk=product_ID)
+
+    if request.method == "POST":
+        form = Change_Bid_Form(request.POST)
+        user = request.user.username
+
+        if form.is_valid():
+            new_Bid = form.cleaned_data["new_Bid"]
+            if new_Bid > p.price:
+
+                p.price = new_Bid
+                p.save()
+                return redirect("my_products", user)
+            else:
+                messages.warning(request, 'New Bid must be greater than the previous Bid.') 
+        else:
+            return render(request, "auctions/change_Bid.html", {
+                "form":Change_Bid_Form(),
+                "product":p
+            })
+    return render(request, "auctions/change_Bid.html", {
+        "form":Change_Bid_Form(),
+        "product":p
     })
 
 
