@@ -1,19 +1,32 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h1>Hello, {{product.owner_name}}. You are changing Bid for your item {{product.item_name}}</h1>
-    <h2>Current Bid is {{product.price}}. New Bid must be greater than this.</h2>
+
+    <div class="alert alert-primary" role="alert">
+        <h2>Hello, {{product.owner_name}}. You are changing Bid for your item {{product.item_name}}</h2>
+
+        <h2 class="alert alert-secondary" role="alert">Current Bid is {{product.price}}.</h2> 
+        
+    </div>
+
+    <div class="alert alert-danger" role="alert">
+        <h1>New Bid must be greater than {{product.price}}.</h2>
+    </div>
+    
     <div>
         <form method="post">
             {% csrf_token %}
-            {{form}}
+            <label>Enter New Bid :-</label>
+            {{form.new_Bid}}
             <input type="submit" value="Change Bid !">
         </form>
     </div>
 
     <div>
         {%for message in messages%}
-            {{message}}
+            <div class="alert alert-warning" role="alert">
+                {{message}}
+            </div>
         {% endfor %}
     </div>
 {% endblock %}

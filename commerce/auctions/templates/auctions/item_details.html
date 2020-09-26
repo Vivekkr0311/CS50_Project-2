@@ -11,7 +11,7 @@
                         <img src="{{item.link}}" class="card-img" alt="...">
                     </div>
 
-                    <div class="col-md-8">
+                    <div class="c">
                         <div class="card-body">
                             <h5 class="card-title">{{item.item_name}}</h5>
                             <p class="card-text">{{item.description}}</p>
@@ -44,18 +44,35 @@
         {% endif %}
     </div>
 
-    <h2>Comments on this item.</h2>
+    
     <div>
-        {% for comment in list_of_comments %}
-            <div class="col-md-8">
-                <div class="card-body">
-                    <p class="card-text">{{comment.comment}}</p>
-                    <p class="card-text">{{comment.person}}</p>
-                    <p class="card-text">{{comment.time}}</p>
+        <div class="container" id="listings">
+            <h2>Comments on this item.</h2>
+        </div>
+        
+        <div class="container" id="listings">
+            {% for comment in list_of_comments %}
+                <div class="card mb-3" style="max-width: 540px;" id="card-listings">
+                    <div class="row no-gutters">
+    
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <p class="card-text">{{comment.comment}}</p>
+                                <p class="card-text"><small class="text-muted">Commented on {{comment.time}}</small></p>
+                                <a href="#">Commented by {{comment.person}}</a>
+                                
+                            </div>
+                        </div>
+    
+                    </div>
+    
                 </div>
-            </div>
-        {% empty %}
-            No Comments
-        {% endfor %}
+            {% empty %}
+                <div>No Comments.</div>
+            {% endfor %}
+        </div>
+        
     </div>
 {% endblock %}
+
+
