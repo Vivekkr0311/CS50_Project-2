@@ -24,3 +24,5 @@ class Product(models.Model):
 class Watch_list(models.Model):
     u_ID = models.IntegerField()
     p_ID = models.IntegerField()
+
+

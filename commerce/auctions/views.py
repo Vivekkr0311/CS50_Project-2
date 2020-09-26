@@ -19,6 +19,10 @@ class Add_product_Form(forms.Form):
 
 class Change_Bid_Form(forms.Form):
     new_Bid = forms.IntegerField()
+
+
+class Comment(forms.Form):
+    comment = forms.CharField(widget=forms.Textarea)
     
     
 
@@ -88,7 +92,22 @@ def register(request):
         return render(request, "auctions/register.html")
 
 
-    
+def item_details(request, item_id):
+    item = Product.objects.get(pk=item_id)
+
+    if request.method == "POST":
+        comment = Comment(request.POST)
+        if comment.is_valid():
+            comment = comment.cleaned_data["comment"]
+
+            return HttpResponse("Comment submitted.")
+        #else:
+        #   return HttpResponse("Comment is not valid.")
+
+    return render(request, "auctions/item_details.html", {
+        "item":item,
+        "comment":Comment()
+    })
     
 @login_required
 def my_products(request, username):
