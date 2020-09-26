@@ -4,3 +4,4 @@ from .models import *
 admin.site.register(User)
 admin.site.register(Product)
 admin.site.register(Watch_list)
+admin.site.register(Comment_Table)

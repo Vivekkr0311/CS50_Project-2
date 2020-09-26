@@ -26,3 +26,8 @@ class Watch_list(models.Model):
     p_ID = models.IntegerField()
 
 
+class Comment_Table(models.Model):
+    person = models.ForeignKey(User, on_delete=models.CASCADE, related_name="person_in_comments")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_in_comments")
+    comment = models.TextField()
+    time = models.DateTimeField(default=timezone.now)

@@ -94,19 +94,30 @@ def register(request):
 
 def item_details(request, item_id):
     item = Product.objects.get(pk=item_id)
-
+    all_comments = Comment_Table.objects.filter(product=item_id)
     if request.method == "POST":
         comment = Comment(request.POST)
         if comment.is_valid():
             comment = comment.cleaned_data["comment"]
 
-            return HttpResponse("Comment submitted.")
+            user = request.user.username
+            u_ID = User.objects.get(username=user)
+            p_ID = Product.objects.get(pk=item_id)
+            c = Comment_Table(person=u_ID, product=p_ID, comment=comment)
+            c.save()
+
+            return render(request, "auctions/item_details.html", {
+                "item":item,
+                "comment":Comment(),
+                "list_of_comments":all_comments
+            })
         #else:
         #   return HttpResponse("Comment is not valid.")
 
     return render(request, "auctions/item_details.html", {
         "item":item,
-        "comment":Comment()
+        "comment":Comment(),
+        "list_of_comments":all_comments
     })
     
 @login_required
