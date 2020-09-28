@@ -31,3 +31,6 @@ class Comment_Table(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_in_comments")
     comment = models.TextField()
     time = models.DateTimeField(default=timezone.now)
+
+class Category(models.Model):
+    pass

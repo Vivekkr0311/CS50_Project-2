@@ -119,7 +119,39 @@ def item_details(request, item_id):
         "comment":Comment(),
         "list_of_comments":all_comments
     })
+
+def show_categories(request):
+    products = Product.objects.all()
+    categories = []
+    for product in products:
+        if product.category not in categories:
+            categories.append(product.category)
+        else:
+            continue
+
     
+    return render(request, "auctions/category.html", {
+        "categories":categories
+    })
+
+def category_search(request):
+    category = request.POST["category"]
+    
+    items = Product.objects.filter(category=category)
+
+    return render(request, "auctions/category_search.html", {
+        "items":items
+    })
+
+@login_required
+def delete_bid(request, item_id):
+
+    p = Product.objects.get(pk=item_id)
+    w = Watch_list.objects.get(p_ID=item_id)
+    p.delete()
+    w.delete()
+    return redirect("my_products", request.user.username)
+
 @login_required
 def my_products(request, username):
     id = User.objects.get(username=username).pk

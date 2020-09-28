@@ -14,11 +14,12 @@
                     <h5 class="card-title">{{product.item_name}}</h5>
                     <p class="card-text">{{product.description}}</p>
                     <p class="card-text">${{product.price}}</p>
+                    <p class="card-text">{{product.category}}</p>
                     <a href="{% url 'change_Bid' product.id %}"><button class="btn btn-primary">Change Bid!</button></a>
                     <a href="{% url 'item_details' product.id %}"><button class="btn btn-info">View this item.</button></a>
                     <div class="mt-2 col-md-12">
                         <a href="#"><button class="btn btn-info">Close Bid.</button></a>
-                        <a href="#"><button class="btn btn-danger">Delete this Bid.</button></a>
+                        <a href="{% url 'delete_bid' product.id %}"><button class="btn btn-danger">Delete this Bid.</button></a>
                     </div>
                     <p class="card-text"><small class="text-muted">{{product.time}}</small></p>
                 </div>
