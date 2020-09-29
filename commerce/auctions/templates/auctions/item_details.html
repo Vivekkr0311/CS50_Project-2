@@ -74,6 +74,15 @@
         </div>
         
     </div>
+
+    <h1>All Bids on this item is here ...</h1>
+    <div>
+        <ul>
+            {% for bid in all_bids %}
+                <li>{{bid.Bid}} by {{bid.bid_by}} on {{bid.on_product}}</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
 
 

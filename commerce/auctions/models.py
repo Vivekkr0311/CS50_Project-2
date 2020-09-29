@@ -32,5 +32,7 @@ class Comment_Table(models.Model):
     comment = models.TextField()
     time = models.DateTimeField(default=timezone.now)
 
-class Category(models.Model):
-    pass
+class Bid(models.Model):
+    Bid = models.IntegerField()
+    bid_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="all_bids")
+    on_product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="Bid")

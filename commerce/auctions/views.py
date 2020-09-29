@@ -23,6 +23,9 @@ class Change_Bid_Form(forms.Form):
 
 class Comment(forms.Form):
     comment = forms.CharField(widget=forms.Textarea)
+
+class Bid_Form(forms.Form):
+    Bid = forms.IntegerField()
     
     
 
@@ -95,6 +98,7 @@ def register(request):
 def item_details(request, item_id):
     item = Product.objects.get(pk=item_id)
     all_comments = Comment_Table.objects.filter(product=item_id)
+    all_bids = Bid.objects.filter(on_product=item)
     if request.method == "POST":
         comment = Comment(request.POST)
         if comment.is_valid():
@@ -109,7 +113,8 @@ def item_details(request, item_id):
             return render(request, "auctions/item_details.html", {
                 "item":item,
                 "comment":Comment(),
-                "list_of_comments":all_comments
+                "list_of_comments":all_comments,
+                "all_bids":all_bids
             })
         #else:
         #   return HttpResponse("Comment is not valid.")
@@ -117,7 +122,8 @@ def item_details(request, item_id):
     return render(request, "auctions/item_details.html", {
         "item":item,
         "comment":Comment(),
-        "list_of_comments":all_comments
+        "list_of_comments":all_comments,
+        "all_bids":all_bids
     })
 
 def show_categories(request):
@@ -141,6 +147,40 @@ def category_search(request):
 
     return render(request, "auctions/category_search.html", {
         "items":items
+    })
+
+@login_required
+def Bid_Now(request, product_id):
+    product_object = Product.objects.get(pk=product_id)
+    user_object = User.objects.get(username=request.user.username)
+    if request.method == "POST":
+        bid_raw_data = Bid_Form(request.POST)
+        if bid_raw_data.is_valid():
+            bid = bid_raw_data.cleaned_data["Bid"]
+
+            p = Product.objects.get(pk=product_id)
+            if bid >= p.price:
+                Bid_object = Bid(Bid=bid, bid_by=user_object, on_product=product_object)
+                Bid_object.save()
+
+                return redirect("index")
+            else:
+                return render(request, "auctions/Biding.html", {
+                    "form":Bid_Form(),
+                    "product":product_object,
+                    "message":"To win this item, bid with more amount."
+                })
+    else:
+        return render(request, "auctions/Biding.html", {
+            "form":Bid_Form(),
+            "product":product_object
+        })
+
+
+
+
+    return render(request, "auctions/Biding.html", {
+        "form":Bid_Form()
     })
 
 @login_required
