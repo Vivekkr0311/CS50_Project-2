@@ -16,7 +16,7 @@
                             <h5 class="card-title">{{item.item_name}}</h5>
                             <p class="card-text">{{item.description}}</p>
                             <p class="card-text">${{item.price}}</p>
-                            <a href='#'><button class="btn btn-primary">Bid Now!</button></a>
+                            <a href="{% url 'bid_now' item.pk %}"><button class="btn btn-primary">Bid Now!</button></a>
                             {% if user.is_authenticated %}
                                 <a href="{% url 'remove_from_watchlist' item.id %}"><button class="btn btn-outline-danger">Remove from watchlist.</button></a>
                             {% endif %}

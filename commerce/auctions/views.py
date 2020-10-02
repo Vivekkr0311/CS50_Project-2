@@ -195,6 +195,9 @@ def delete_bid(request, item_id):
 @login_required
 def close_bid(request, item_id):
     p = Product.objects.get(pk=item_id)
+    watchlist_object = Watch_list.objects.filter(p_ID=item_id)
+    for each_object in watchlist_object:
+        each_object.delete()
     '''try:
         bid_object = Bid.objects.filter(on_product=p)
         return render(request, "auctions/bid_closing_page.html", {
@@ -316,7 +319,7 @@ def create_listing(request, username):
             p.save()
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, "encyclopedia/create_listing.html", {
+            return render(request, "auctions/create_listing.html", {
                 "username":username,
                 "form": Add_product_Form()
             })
