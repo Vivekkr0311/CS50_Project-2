@@ -1,0 +1,11 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h1>Winner Bid is {{winner_bid}}.</h1>
+    <h1>{{user.username}} won the product {{won_product.item_name}}.</h1>
+    {% for bid in all_bids_on_item %}
+        <h1>Bid is {{bid.Bid}} by {{bid.bid_by}} on {{bid.on_product}}</h1>
+    {% empty %}
+        <h1>No winners for your item.</h1>
+    {% endfor %}
+{% endblock %}

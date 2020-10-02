@@ -193,6 +193,62 @@ def delete_bid(request, item_id):
     return redirect("my_products", request.user.username)
 
 @login_required
+def close_bid(request, item_id):
+    p = Product.objects.get(pk=item_id)
+    '''try:
+        bid_object = Bid.objects.filter(on_product=p)
+        return render(request, "auctions/bid_closing_page.html", {
+            "all_bids_on_item":bid_object
+        })
+    except Bid.DoesNotExist:
+        return HttpResponse("No winner for your item.")'''
+    bid_object = Bid.objects.filter(on_product=p)
+    max_bid = max(single_object.Bid for single_object in bid_object)
+
+
+    #Getting winner's user object and product object.
+    bid_object_2 = Bid.objects.get(Bid=max_bid)
+    user_object = User.objects.get(username=bid_object_2.bid_by)
+    product_won = Product.objects.get(pk=item_id)
+    
+
+    #Copying all data to won.
+    won_product = All_Won()
+    won_product.owner_name = product_won.owner_name
+    won_product.item_name = product_won.item_name
+    won_product.category = product_won.category
+    won_product.description = product_won.description
+    won_product.link = product_won.link
+    won_product.time = product_won.time
+
+    won_product.save()
+
+    winner = Winner(won_by=user_object, product_won=won_product, on_price=max_bid)
+    winner.save()
+
+    #Deleting from all listing.
+    product_won.delete()
+    
+
+    return render(request, "auctions/bid_closing_page.html", {
+        "user":user_object,
+        "winner_bid":max_bid,
+        "won_product":won_product,
+        "all_bids_on_item":bid_object
+    })
+
+@login_required
+def closed_products(request):
+    user = request.user.username
+    
+    products_were = All_Won.objects.filter(owner_name=user)
+
+
+    return render(request, "auctions/winner_page.html", {
+        "items":products_were
+    })
+
+@login_required
 def my_products(request, username):
     id = User.objects.get(username=username).pk
     user = User.objects.get(pk=id)
@@ -302,4 +358,19 @@ def change_Bid(request, product_ID):
 
 @login_required
 def your_winnings(request):
-    return render(request, "auctions/your_winnings.html")
+    user = User.objects.get(username=request.user.username)
+    
+    winner_objects = Winner.objects.filter(won_by=user)
+    
+    items_won = []
+    for each_object in winner_objects:
+        items_won.append(each_object.product_won)
+    
+    #won_product = winner_object.product_won.item_name
+    #on_price = winner_object.on_price
+    return render(request, "auctions/your_winnings.html",{
+        "items":items_won
+        #"on_product":on_product,
+        #"item":item
+    })
+    

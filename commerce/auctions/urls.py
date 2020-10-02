@@ -18,7 +18,9 @@ urlpatterns = [
     path("your_winnings/", views.your_winnings, name="your_winnings"),
     path("changeBid/<int:product_ID>", views.change_Bid, name="change_Bid"),
     path("item_details/<int:item_id>", views.item_details, name="item_details"),
-    path("delete_bid/<int:item_id>", views.delete_bid, name="delete_bid")
+    path("delete_bid/<int:item_id>", views.delete_bid, name="delete_bid"),
+    path("close_bid/<int:item_id>", views.close_bid, name="close_bid"),
+    path("closed_products", views.closed_products, name="closed_products")
     #path("categories", views.categories, name="categories"),
    # path("categories/<str:category>", views.category, name="category"),
    
