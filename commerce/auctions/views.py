@@ -14,7 +14,7 @@ class Add_product_Form(forms.Form):
     product_name = forms.CharField(max_length=64)
     product_description = forms.CharField(widget=forms.Textarea, required=False)
     category = forms.CharField(max_length=64)
-    link = forms.URLField(required=False)
+    link = forms.CharField(required=False)
     price = forms.IntegerField()
 
 class Change_Bid_Form(forms.Form):
