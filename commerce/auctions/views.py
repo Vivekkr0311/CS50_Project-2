@@ -186,10 +186,16 @@ def Bid_Now(request, product_id):
 @login_required
 def delete_bid(request, item_id):
 
-    p = Product.objects.get(pk=item_id)
-    w = Watch_list.objects.get(p_ID=item_id)
-    p.delete()
-    w.delete()
+    try:
+        p = Product.objects.get(pk=item_id)
+        w = Watch_list.objects.get(p_ID=item_id)
+        p.delete()
+        w.delete()
+    except:
+        p = Product.objects.get(pk=item_id)
+        p.delete()
+        return redirect("my_products", request.user.username)
+
     return redirect("my_products", request.user.username)
 
 @login_required
