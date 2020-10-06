@@ -1,19 +1,31 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h1>Creating for {{username}}</h1>
+    <div class="alert alert-info" role="alert">
+        <h1>Creating Listing.</h1>
+    </div>
+    
    <form  method="post">
        {% csrf_token %}
-       <label>Product Name :</label>
-       <div id="title-field">{{form.product_name }}</div>
+
+       <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Your product name : {{form.product_name }}</label>
+                <label>Category :- {{form.category}}</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Link to an image (Optional):- {{form.link}}</label>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label>Give initial Bid :-      {{form.price}}</label>
+            </div>
+            <input type="submit" value="Click here to create listing.." style="float: right; margin-left: 185px;">
+      </div>
+
+       
        <label>Product Description (Optional): </label>
-       <input type="submit" value="Click here to add.." style="float: right; margin-right: 255px;">
+       
        <div>{{form.product_description}}</div>
-       <label>Category :- </label>
-       <div>{{form.category}}</div>
-       <label>Link to an image (Optional):-</label>
-       <div>{{form.link}}</div> 
-       <label>Give initial Bid :-</label>
-       <div>{{form.price}}</div>
    </form>
 {% endblock %}

@@ -1,5 +1,34 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h1>Some html for your winnings!</h1>
+
+    {% if items%}
+        <div class="alert alert-primary" role="alert">
+            <h1>You have won these items :-</h1>
+        </div>
+    {% endif %}
+
+
+    {% for item in items %}
+        <div class="container" id="listings">
+            <div class="card mb-3" style="max-width: 540px;" id="card-listings">
+                <div class="row no-gutters">
+
+                    <div class="col-md-4">
+                        <img src="{{item.link}}" class="card-img" alt="...">
+                    </div>
+
+                    <div class="c">
+                        <div class="card-body">
+                            <h5 class="card-title">{{item.item_name}}</h5>
+                            <p class="card-text">{{item.description}}</p>
+                            <p class="card-text">{{item.category}}</p>
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    {% empty %}
+        <h1>You have not won any Bid yet.</h1>
+    {% endfor %}
 {% endblock %}

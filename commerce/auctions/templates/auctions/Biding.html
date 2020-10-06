@@ -1,0 +1,13 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+`   <h1>Current Price is {{product.price}}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        Bid :- {{form.Bid}} 
+        <input type="submit">
+    </form>
+
+    {{message}}
+{% endblock %}

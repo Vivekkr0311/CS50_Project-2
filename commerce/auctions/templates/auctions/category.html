@@ -1,0 +1,33 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <div class="card text-center">
+        <div class="card-header">
+            Search by category.
+        </div>
+        <div class="card-body">
+            <form action="{% url 'categories_result' %}" method=POST>
+                {% csrf_token %}
+                <select name="category" style="width: auto;">
+                    {% for category in categories %}
+                        <option value="{{category}}">{{ category }}</option>
+                    {% empty %}
+                        <h1>No one posted any type of product yet.</h1>
+                    {% endfor %}
+                </select>
+                <input type="submit">
+            </form>
+        
+            {% for category in categories %}
+                <h1 style="font-style: sans-serif; color:brown;">{{category}}</h1>
+            {% endfor %}
+        </div>
+        <div class="card-footer text-muted">
+            Categories are case-insensitive.
+        </div>
+    </div>
+
+    
+{% endblock %}
+    
