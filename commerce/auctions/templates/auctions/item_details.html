@@ -75,13 +75,25 @@
         
     </div>
 
-    <h1>All Bids on this item is here ...</h1>
-    <div>
-        <ul>
-            {% for bid in all_bids %}
-                <li>{{bid.Bid}} by {{bid.bid_by}} on {{bid.on_product}}</li>
-            {% endfor %}
-        </ul>
+    <div class="container" id="listings">
+
+        <h1>All Bids on this item is here ...</h1>
+            <div>
+                <div class="card mb-3" style="max-width: 540px;" id="card-listings">
+                    <div class="row no-gutters">
+    
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <ul>
+                                {% for bid in all_bids %}
+                                    <li>{{bid.Bid}} by {{bid.bid_by}}.</li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
 {% endblock %}
 

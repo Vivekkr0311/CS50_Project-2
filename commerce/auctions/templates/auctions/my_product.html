@@ -27,6 +27,9 @@
         </div>
     </div>
     {% empty %}
-        <li>No Product you have posted.</li>
+        <div class="alert alert-warning" role="alert">
+            <li>You have not created any listing yet.</li>
+        </div>
+        
     {% endfor %}
 {% endblock %}
